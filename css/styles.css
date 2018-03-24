@@ -212,7 +212,7 @@ nav h1 a {
   min-height: 248px;
   min-width: 100%;
 }
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: #8C3030;
   font-family: Arial,sans-serif;
   font-size: 14pt;
@@ -245,9 +245,20 @@ nav h1 a {
   text-decoration: none;
   text-transform: uppercase;
 
-
-
 }
+
+/*#restaurant-name :focus ,
+#restaurant-hours: focus,
+#restaurant-address:focus,
+#reviews-list li:focus,
+{
+    background-color: #fff;
+  color: #8C3030;
+  font-weight: bolder;
+  outline: 2px solid #8C3030;
+ 
+}
+*/
 #restaurants-list li a:hover,
 #restaurants-list li a:focus {
   background-color: #fff;
@@ -300,6 +311,7 @@ nav h1 a {
 .restaurant-main-info {
   display: flex;
   flex-direction: row;
+  margin: auto;
 }
 .pic{
   width: 50%;
@@ -367,7 +379,7 @@ nav h1 a {
   padding-top: 20px;
 }
 
-#reviews-container h2{
+#reviews-container h3{
   color: #8C3030;
   font-family: Arial,sans-serif;
   font-size: 25pt;
@@ -473,7 +485,7 @@ nav h1 a{
 
 
 
-@media screen and (min-width:800px){
+@media screen and (min-width:1224px){
 
 
   #restaurants-list{
@@ -483,7 +495,27 @@ nav h1 a{
 
 
 #restaurants-list li{
-  width: calc(50% - 94px);
+  width: calc((100% - 300px)/3);
+}
+
+
+
+}
+
+
+
+
+@media screen and (min-width:800px) and (max-width:1223px){
+
+
+  #restaurants-list{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;}
+
+
+#restaurants-list li{
+  width: calc((100% - 190px)/2);
 }
 
 
@@ -493,10 +525,7 @@ nav h1 a{
 
 @media screen and (min-width:900px){
 
-  body, .inside header {
-    width: 80%;
-    margin: auto;
-  }
+ 
 
 #reviews-container{
   display: flex;
