@@ -55,12 +55,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
-  const image = document.getElementById('restaurant-img');
+    const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  image.setAttribute('alt',`${restaurant.name} restaurant's image`);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-
+  image.srcset = DBHelper.imageUrlsForSrcSet(restaurant.photograph);
+  /*image.sizes ='(max-width: 430px) 25vw, (min-width: 650px) calc((100vw - 65px)/2), (min-width: 960px) width: calc((100vw - 100px)/3)';
+*/
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+
 
   // fill operating hours
   if (restaurant.operating_hours) {
@@ -80,10 +84,12 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     const day = document.createElement('td');
     day.innerHTML = key;
+    day.setAttribute("tabindex",0);
     row.appendChild(day);
 
     const time = document.createElement('td');
     time.innerHTML = operatingHours[key];
+    time.setAttribute("tabindex",0);
     row.appendChild(time);
 
     hours.appendChild(row);
@@ -115,27 +121,45 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+
+const createReviewHTML = (review) => {
   const li = document.createElement('li');
+
+  const divReviewHeader = document.createElement('div');
+  divReviewHeader.className = 'review-header';
+
   const name = document.createElement('p');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  name.className = 'review-name';
+  divReviewHeader.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  date.className = 'review-date';
+  divReviewHeader.appendChild(date);
+
+  li.appendChild(divReviewHeader);
+
+  const divReviewContent = document.createElement('div');
+  divReviewContent.className = 'review-content';
 
   const rating = document.createElement('p');
-  rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
+  // rating.innerHTML = `Rating: ${review.rating}`;
+  rating.innerHTML = `Rating: ${'★'.repeat(review.rating)}`;
+  rating.className = 'review-rating';
+  rating.setAttribute('role', 'img');
+  rating.setAttribute('aria-label', `Rating: ${review.rating}`);
+  divReviewContent.appendChild(rating);
 
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
-  li.appendChild(comments);
+  comments.className = 'review-comment';
+  divReviewContent.appendChild(comments);
+
+  li.appendChild(divReviewContent);
 
   return li;
-}
-
+};
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
